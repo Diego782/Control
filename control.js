@@ -8,8 +8,8 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 // Configuración del GPS
-const DEVICE_IP = '192.168.1.100'; // Cambia por la IP del GPS
-const DEVICE_PORT = 3000; // Cambia al puerto del GPS
+const DEVICE_IP = '3.23.99.134'; // Cambia por la IP del GPS
+const DEVICE_PORT = 4000; // Cambia al puerto del GPS
 
 // Función para calcular el checksum
 function calculateChecksum(data) {
