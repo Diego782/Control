@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control GPS</title>
+    <script src="control.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #response {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Control GPS</h1>
+    <button id="sendCommand">Enviar comando DYD#</button>
+    <div id="response"></div>
+
+    <script>
+        const socket = io();
+
+        const button = document.getElementById('sendCommand');
+        const responseDiv = document.getElementById('response');
+
+        button.addEventListener('click', () => {
+            responseDiv.textContent = "Enviando comando...";
+            socket.emit('send-command');
+        });
+
+        socket.on('response', (message) => {
+            responseDiv.textContent = message;
+        });
+    </script>
+</body>
+</html>
