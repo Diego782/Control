@@ -19,6 +19,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 10px;
         }
         button:hover {
             background-color: #45a049;
@@ -32,17 +33,24 @@
 <body>
     <h1>Control GPS</h1>
     <button id="sendCommand">Enviar comando DYD#</button>
+    <button id="sendHFYDCommand">Enviar comando HFYD#</button>
     <div id="response"></div>
 
     <script>
         const socket = io();
 
-        const button = document.getElementById('sendCommand');
+        const sendCommandButton = document.getElementById('sendCommand');
+        const sendHFYDCommandButton = document.getElementById('sendHFYDCommand');
         const responseDiv = document.getElementById('response');
 
-        button.addEventListener('click', () => {
-            responseDiv.textContent = "Enviando comando...";
+        sendCommandButton.addEventListener('click', () => {
+            responseDiv.textContent = "Enviando comando DYD#...";
             socket.emit('send-command');
+        });
+
+        sendHFYDCommandButton.addEventListener('click', () => {
+            responseDiv.textContent = "Enviando comando HFYD#...";
+            socket.emit('send-hfyd-command');
         });
 
         socket.on('response', (message) => {
