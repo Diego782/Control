@@ -8,8 +8,8 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 // Configuración del GPS
-const DEVICE_IP = '3.23.99.134'; // Cambia por la IP del GPS
-const DEVICE_PORT = 4000; // Cambia al puerto del GPS
+const DEVICE_IP = '3.23.99.134'; // Cambia por la IP del servidor en la nube
+const DEVICE_PORT = 4000; // Cambia al puerto del servidor en la nube
 
 // Función para calcular el checksum
 function calculateChecksum(data) {
@@ -38,12 +38,12 @@ function sendDYDCommand(callback) {
 
     const client = new net.Socket();
     client.connect(DEVICE_PORT, DEVICE_IP, () => {
-        console.log('Conectado al GPS. Enviando comando DYD#...');
+        console.log('Conectado al servidor en la nube. Enviando comando DYD#...');
         client.write(packet);
     });
 
     client.on('data', (data) => {
-        console.log('Respuesta del GPS:', data.toString('hex'));
+        console.log('Respuesta del servidor:', data.toString('hex'));
         callback(null, data.toString('hex'));
         client.destroy();
     });
@@ -80,12 +80,12 @@ function sendHFYDCommand(callback) {
 
     const client = new net.Socket();
     client.connect(DEVICE_PORT, DEVICE_IP, () => {
-        console.log('Conectado al GPS. Enviando comando HFYD#...');
+        console.log('Conectado al servidor en la nube. Enviando comando HFYD#...');
         client.write(packet);
     });
 
     client.on('data', (data) => {
-        console.log('Respuesta del GPS:', data.toString('hex'));
+        console.log('Respuesta del servidor:', data.toString('hex'));
         callback(null, data.toString('hex'));
         client.destroy();
     });
@@ -111,7 +111,7 @@ io.on('connection', (socket) => {
             if (err) {
                 socket.emit('response', `Error: ${err.message}`);
             } else {
-                socket.emit('response', `Respuesta del GPS: ${response}`);
+                socket.emit('response', `Respuesta del servidor: ${response}`);
             }
         });
     });
@@ -121,7 +121,7 @@ io.on('connection', (socket) => {
             if (err) {
                 socket.emit('response', `Error: ${err.message}`);
             } else {
-                socket.emit('response', `Respuesta del GPS: ${response}`);
+                socket.emit('response', `Respuesta del servidor: ${response}`);
             }
         });
     });
