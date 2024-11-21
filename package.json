@@ -1,0 +1,13 @@
+{
+  "name": "pruebaroba",
+  "version": "1.0.0",
+  "description": "",
+  "main": "control.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node control.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
